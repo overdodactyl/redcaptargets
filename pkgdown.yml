@@ -1,0 +1,9 @@
+pandoc: 3.1.11
+pkgdown: 2.1.3
+pkgdown_sha: ~
+articles:
+  cues: cues.html
+last_built: 2025-06-15T19:42Z
+urls:
+  reference: https://overdodactyl.github.io/redcaptargets/reference
+  article: https://overdodactyl.github.io/redcaptargets/articles
