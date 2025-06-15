@@ -4,6 +4,9 @@
 # redcaptargets <img src="man/figures/logo.png" align="right" width="100" height="100"/>
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/overdodactyl/redcaptargets/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/overdodactyl/redcaptargets/actions/workflows/R-CMD-check.yaml)
+
 <!-- badges: end -->
 
 `redcaptargets` integrates [REDCap](https://project-redcap.org/)
@@ -79,16 +82,16 @@ list(
 ``` r
 targets::tar_make()
 #> + redcap_visits dispatched
-#> ✔ redcap_visits completed [453ms, 427 B]
+#> ✔ redcap_visits completed [446ms, 427 B]
 #> + redcap_labs dispatched
 #> ✔ redcap_labs completed [93ms, 476 B]
 #> + redcap_demographics dispatched
-#> ✔ redcap_demographics completed [99ms, 622 B]
+#> ✔ redcap_demographics completed [93ms, 622 B]
 #> + redcap_meta_db dispatched
-#> ✔ redcap_meta_db completed [70ms, 568 B]
+#> ✔ redcap_meta_db completed [73ms, 568 B]
 #> + n_enrolled dispatched
 #> ✔ n_enrolled completed [0ms, 48 B]
-#> ✔ ended pipeline [972ms, 5 completed, 0 skipped]
+#> ✔ ended pipeline [1s, 5 completed, 0 skipped]
 ```
 
 #### View generated targets
