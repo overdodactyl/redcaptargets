@@ -1,0 +1,35 @@
+Package: redcaptargets
+Title: Targets for REDCap Workflows
+Version: 0.0.1
+Authors@R: 
+    person(
+      given = "Pat",
+      family = "Johnson",
+      role = c("aut", "cre"),
+      email = "Johnson.Pat@mayo.edu"
+  )
+Description: `redcaptargets` provides integration between REDCap databases 
+  and the `targets` pipeline toolkit, streamlining reproducible data workflows 
+  in clinical research. It uses the `redcapAPI` package as a backend to 
+  connect to REDCap and automatically creates dynamic targets for metadata and 
+  instrument-level data. Built-in support for REDCap logging allows data 
+  to be re-pulled only when meaningful changes are detected, avoiding 
+  unnecessary computation. Modular factory functions reduce boilerplate and 
+  adapt easily to evolving study designs.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports: 
+    cli,
+    redcapAPI,
+    rlang,
+    tarchetypes,
+    targets
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0),
+    tibble
+Config/testthat/edition: 3
+VignetteBuilder: knitr

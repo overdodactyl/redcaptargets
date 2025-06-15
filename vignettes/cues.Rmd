@@ -1,0 +1,93 @@
+---
+title: "Target Cues"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Target Cues}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Re-Pull Triggers in `redcaptargets`
+
+The `cue` argument of `tar_redcap()` controls when data is re-pulled from REDCap. Supported options include `"logging"` (default), `"always"`, `"thorough"`, and `"never"`.
+
+## Logging (default)
+
+When `cue = "logging"`, `tar_redcap()` inspects the REDCap **project logs** and re-pulls data only when meaningful changes are detected—such as new or modified records (for instruments) or changes to project structure (for metadata).
+
+> **Note:** This behavior requires *log export permissions* in the REDCap project. If your API token does not have access to the project logs, this cue method will fail.
+
+Using logs helps avoid unnecessary data pulls and can significantly speed up pipelines for small- to medium-sized projects. `redcaptargets` fetches all REDCap project logs between the **last successful `tar_make()` run** and **the current time**, and determines whether relevant changes occurred. However, for very large projects with long histories or frequent activity, exporting logs over large time windows can become slow. In such cases, consider using a different `cue` strategy.
+
+## Always
+
+Setting `cue = "always"` tells `tar_redcap()` to re-pull data from REDCap **every time** the pipeline runs, regardless of whether any changes were made.
+
+This mode is useful when:
+
+-   You expect frequent updates to the data and want to guarantee freshness
+-   You do **not** have log export permissions in REDCap
+-   You’re in the early stages of development and want to avoid stale data
+-   Your REDCap project is **small**, and a full re-pull is faster than parsing the project logs
+
+For small to moderate REDCap projects, this strategy can actually be **more efficient** than using the logging-based trigger. However, for larger studies, it may lead to longer run times and unnecessary server load.
+
+## Thorough
+
+Using cue = "thorough" applies the default [targets](https://docs.ropensci.org/targets/reference/tar_cue.html) invalidation rules. Under this mode, REDCap data will be re-pulled **only if a tracked input changes**. This includes:
+
+-   Changes to the instrument_names argument (e.g., a new instrument is added).
+
+-   Changes to the code used to fetch REDCap instrument or metadata.
+
+-   Changes to any custom functions or global objects used within the call to tar_redcap().
+
+This mode **does not** inspect REDCap logs. As a result, updates to the REDCap database (such as new records or edited fields) **will not** trigger a re-pull unless one of the tracked R-side inputs changes.
+
+Use cue = "thorough" when you want your pipeline to be reactive **only to R-side changes**, and do **not** need automatic detection of data changes on the REDCap side.
+
+## Never
+
+Use cue = "never" when you want the REDCap data to **never be re-pulled**, regardless of changes to your code, inputs, or the REDCap database itself.
+
+This mode disables all automatic invalidation cues in the targets pipeline, **except** in two cases:
+
+-   The target has **never been run** before (i.e., no metadata exists).
+
+-   The target’s **last run errored**.
+
+Once a target has run successfully, it will **not** re-run—even if:
+
+-   The REDCap connection changes
+
+-   New instruments are added
+
+-   Fields or records are modified in REDCap
+
+-   The pipeline code itself is edited
+
+### **When to use**
+
+This mode is useful for:
+
+-   Projects that rely on a **frozen snapshot** of the REDCap data
+
+-   Environments where you want **maximum reproducibility** and no accidental data changes
+
+-   Pipelines run in **restricted or production environments** where data pulls must be tightly controlled
+
+If you need to manually re-run the target under this mode, use `targets::tar_invalidate()`. For example:
+
+```{r eval=FALSE}
+targets::tar_invalidate(redcap_metadata)
+targets::tar_invalidate(redcap_instrument_a)
+```
+
+## 

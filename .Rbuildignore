@@ -1,0 +1,11 @@
+^renv$
+^renv\.lock$
+^redcaptargets\.Rproj$
+^\.Rproj\.user$
+^LICENSE\.md$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^README\.Rmd$
+^_targets$
+^_targets\.R$
