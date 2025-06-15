@@ -17,6 +17,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 
+[![R-CMD-check](https://github.com/overdodactyl/redcaptargets/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/overdodactyl/redcaptargets/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 `redcaptargets` integrates [REDCap](https://project-redcap.org/) databases with the [`targets`](https://books.ropensci.org/targets/) pipeline toolkit to streamline reproducible clinical research workflows. It leverages the [`redcapAPI`](https://cran.r-project.org/web/packages/redcapAPI/index.html) package to connect to REDCap and automatically generates dynamic targets for both metadata and instrument-level data. By leveraging REDCap logging, redcaptargets detects meaningful changes and re-pulls data only when needed, minimizing compute time and ensuring local copies remain up to date. Modular factory functions minimize boilerplate and adapt seamlessly to evolving study designs.

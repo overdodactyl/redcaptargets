@@ -9,3 +9,4 @@
 ^README\.Rmd$
 ^_targets$
 ^_targets\.R$
+^\.github$

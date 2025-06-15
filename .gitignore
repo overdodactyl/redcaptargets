@@ -5,3 +5,7 @@
 docs
 inst/doc
 _targets/
+renv.lock
+renv/
+.Renviron
+.Rprofile
