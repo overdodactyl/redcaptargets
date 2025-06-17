@@ -121,16 +121,18 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">targets</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_make.html" class="external-link">tar_make</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; + redcap_visits dispatched</span></span>
-<span><span class="co">#&gt; ✔ redcap_visits completed [509ms, 428 B]</span></span>
+<span><span class="co">#&gt; ✔ redcap_visits completed [574ms, 428 B]</span></span>
 <span><span class="co">#&gt; + redcap_labs dispatched</span></span>
-<span><span class="co">#&gt; ✔ redcap_labs completed [103ms, 477 B]</span></span>
-<span><span class="co">#&gt; + redcap_demographics dispatched</span></span>
-<span><span class="co">#&gt; ✔ redcap_demographics completed [117ms, 623 B]</span></span>
+<span><span class="co">#&gt; ✔ redcap_labs completed [107ms, 477 B]</span></span>
 <span><span class="co">#&gt; + redcap_meta_db dispatched</span></span>
-<span><span class="co">#&gt; ✔ redcap_meta_db completed [77ms, 568 B]</span></span>
+<span><span class="co">#&gt; ✔ redcap_meta_db completed [87ms, 568 B]</span></span>
+<span><span class="co">#&gt; + redcap_demographics dispatched</span></span>
+<span><span class="co">#&gt; ✔ redcap_demographics completed [97ms, 623 B]</span></span>
+<span><span class="co">#&gt; + redcap_record_id dispatched</span></span>
+<span><span class="co">#&gt; ✔ redcap_record_id completed [0ms, 62 B]</span></span>
 <span><span class="co">#&gt; + n_enrolled dispatched</span></span>
 <span><span class="co">#&gt; ✔ n_enrolled completed [0ms, 48 B]</span></span>
-<span><span class="co">#&gt; ✔ ended pipeline [1.1s, 5 completed, 0 skipped]</span></span></code></pre></div>
+<span><span class="co">#&gt; ✔ ended pipeline [1.4s, 6 completed, 0 skipped]</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="view-generated-targets">View generated targets<a class="anchor" aria-label="anchor" href="#view-generated-targets"></a>
@@ -139,14 +141,15 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">manifest</span> <span class="op">&lt;-</span> <span class="fu">targets</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_manifest.html" class="external-link">tar_manifest</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">manifest</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"description"</span><span class="op">)</span><span class="op">]</span></span>
-<span><span class="co">#&gt; # A tibble: 5 × 2</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 2</span></span>
 <span><span class="co">#&gt;   name                description              </span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;               &lt;chr&gt;                    </span></span>
 <span><span class="co">#&gt; 1 redcap_visits       REDCap Data: visits      </span></span>
 <span><span class="co">#&gt; 2 redcap_labs         REDCap Data: labs        </span></span>
-<span><span class="co">#&gt; 3 redcap_demographics REDCap Data: demographics</span></span>
-<span><span class="co">#&gt; 4 redcap_meta_db      REDCap Metadata          </span></span>
-<span><span class="co">#&gt; 5 n_enrolled          Enrollment Count</span></span></code></pre></div>
+<span><span class="co">#&gt; 3 redcap_meta_db      REDCap Metadata          </span></span>
+<span><span class="co">#&gt; 4 redcap_demographics REDCap Data: demographics</span></span>
+<span><span class="co">#&gt; 5 redcap_record_id    REDCap Record ID         </span></span>
+<span><span class="co">#&gt; 6 n_enrolled          Enrollment Count</span></span></code></pre></div>
 </div>
 </div>
 </div>
