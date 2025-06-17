@@ -56,6 +56,7 @@ targets pipeline.
 
 ``` r
 library(targets)
+library(redcaptargets)
 
 # Establish REDCap Connection
 redcap_con <- redcapAPI::redcapConnection(
@@ -82,16 +83,16 @@ list(
 ``` r
 targets::tar_make()
 #> + redcap_visits dispatched
-#> ✔ redcap_visits completed [446ms, 427 B]
+#> ✔ redcap_visits completed [509ms, 428 B]
 #> + redcap_labs dispatched
-#> ✔ redcap_labs completed [93ms, 476 B]
+#> ✔ redcap_labs completed [103ms, 477 B]
 #> + redcap_demographics dispatched
-#> ✔ redcap_demographics completed [93ms, 622 B]
+#> ✔ redcap_demographics completed [117ms, 623 B]
 #> + redcap_meta_db dispatched
-#> ✔ redcap_meta_db completed [73ms, 568 B]
+#> ✔ redcap_meta_db completed [77ms, 568 B]
 #> + n_enrolled dispatched
 #> ✔ n_enrolled completed [0ms, 48 B]
-#> ✔ ended pipeline [1s, 5 completed, 0 skipped]
+#> ✔ ended pipeline [1.1s, 5 completed, 0 skipped]
 ```
 
 #### View generated targets

@@ -1,4 +1,5 @@
 library(targets)
+library(redcaptargets)
 
 # Establish REDCap Connection
 redcap_con <- redcapAPI::redcapConnection(
