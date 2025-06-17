@@ -173,6 +173,10 @@ redcap_fetch_records <- function(con, forms, ...) {
 }
 
 
+redcap_fetch_meta <- function(con) {
+  redcapAPI::exportMetaData(con) |>
+    try_tibble()
+}
 
 #' Resolve target cue settings for REDCap targets
 #'
@@ -311,46 +315,50 @@ tar_redcap <- function(name, con,
                        mode = c("logging", "always", "thorough", "never"),
                        fetch_records = redcap_fetch_records,
                        instruments = NULL,
-                       ...
-                      ) {
+                       ...) {
+  con_obj <- con
+  con_sym <- as.symbol(deparse(substitute(con)))
 
   mode <- rlang::arg_match(mode, c("logging", "always", "thorough", "never"))
   dots <- rlang::list2(...)
+
   validate_fetch_records(fetch_records)
-  validate_redcap_connection(con)
+  validate_redcap_connection(con_obj)
 
   name_sym <- rlang::ensym(name)
   name_str <- rlang::as_string(name_sym)
   name_meta <- paste0(name_str, "_meta_db")
 
-  instruments <- resolve_redcap_instruments(instruments, con)
-  name_instruments <- paste0(name_str, "_", instruments$name)
+  instruments_df <- resolve_redcap_instruments(instruments, con_obj)
+  name_instruments <- paste0(name_str, "_", instruments_df$name)
 
-  cues <- redcap_resolve_cues(mode, name_meta, name_instruments, con)
+  cues <- redcap_resolve_cues(mode, name_meta, name_instruments, con_obj)
 
-  list(
+  rlang::list2(
     targets::tar_target_raw(
       name = name_meta,
       command = substitute(
-        redcapAPI::exportMetaData(con) |>
-          try_tibble(),
-        env = list(con = con)
+        redcap_fetch_meta(con),
+        env = list(con = con_sym)
       ),
       cue = cues$meta,
       description = "REDCap Metadata"
     ),
-    tarchetypes::tar_map(
-      values = instruments,
+    !!!tarchetypes::tar_map(
+      values = instruments_df,
       names = "name",
       targets::tar_target_raw(
         name_str,
-        command = rlang::expr({
-          (!!fetch_records)(forms = name, con = !!con, !!!dots)
-        }),
+        command = rlang::call2(
+          fetch_records,
+          forms = rlang::sym("name"),
+          con = con_sym,
+          !!!dots
+        ),
         cue = cues$inst,
         description = "REDCap Data:"
       ),
-      unlist = TRUE
+      unlist = FALSE
     )
   )
 }
