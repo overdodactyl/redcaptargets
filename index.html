@@ -93,6 +93,7 @@
 </h4>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/targets/" class="external-link">targets</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://overdodactyl.github.io/redcaptargets/">redcaptargets</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Establish REDCap Connection</span></span>
 <span><span class="va">redcap_con</span> <span class="op">&lt;-</span> <span class="fu">redcapAPI</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/redcapAPI/man/redcapConnection.html" class="external-link">redcapConnection</a></span><span class="op">(</span></span>
@@ -119,16 +120,16 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">targets</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_make.html" class="external-link">tar_make</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; + redcap_visits dispatched</span></span>
-<span><span class="co">#&gt; ✔ redcap_visits completed [446ms, 427 B]</span></span>
+<span><span class="co">#&gt; ✔ redcap_visits completed [509ms, 428 B]</span></span>
 <span><span class="co">#&gt; + redcap_labs dispatched</span></span>
-<span><span class="co">#&gt; ✔ redcap_labs completed [93ms, 476 B]</span></span>
+<span><span class="co">#&gt; ✔ redcap_labs completed [103ms, 477 B]</span></span>
 <span><span class="co">#&gt; + redcap_demographics dispatched</span></span>
-<span><span class="co">#&gt; ✔ redcap_demographics completed [93ms, 622 B]</span></span>
+<span><span class="co">#&gt; ✔ redcap_demographics completed [117ms, 623 B]</span></span>
 <span><span class="co">#&gt; + redcap_meta_db dispatched</span></span>
-<span><span class="co">#&gt; ✔ redcap_meta_db completed [73ms, 568 B]</span></span>
+<span><span class="co">#&gt; ✔ redcap_meta_db completed [77ms, 568 B]</span></span>
 <span><span class="co">#&gt; + n_enrolled dispatched</span></span>
 <span><span class="co">#&gt; ✔ n_enrolled completed [0ms, 48 B]</span></span>
-<span><span class="co">#&gt; ✔ ended pipeline [1s, 5 completed, 0 skipped]</span></span></code></pre></div>
+<span><span class="co">#&gt; ✔ ended pipeline [1.1s, 5 completed, 0 skipped]</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="view-generated-targets">View generated targets<a class="anchor" aria-label="anchor" href="#view-generated-targets"></a>
