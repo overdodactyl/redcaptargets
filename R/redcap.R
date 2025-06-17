@@ -15,6 +15,30 @@ validate_redcap_connection <- function(con) {
   invisible(TRUE)
 }
 
+#' Convert a timestamp to the REDCap server timezone (base R)
+#'
+#' Internal helper that converts a POSIXct timestamp to the timezone expected
+#' by the REDCap server.
+#'
+#' The REDCap server timezone is inferred from the option
+#' `redcaptargets.redcap_tz`. If this is not set, it defaults to the local
+#' system timezone via [Sys.timezone()].
+#'
+#' This conversion is critical when supplying `beginTime` and `endTime` to
+#' REDCap API functions like `exportLogging()`, which parse timestamps in the
+#' server's local timezone regardless of any suffix (e.g., "CST", "EST") or
+#' attached time zone.
+#'
+#' @param time A POSIXct timestamp or vector of timestamps to be converted.
+#'
+#' @return A POSIXct timestamp tagged with the REDCap server timezone.
+#'   The clock time is preserved; only the timezone interpretation is changed.
+#' @keywords internal
+redcap_convert_tz <- function(time) {
+  redcap_tz <- getOption("redcaptargets.redcap_tz", Sys.timezone())
+  as.POSIXct(format(time, tz = redcap_tz, usetz = TRUE), tz = redcap_tz)
+}
+
 #' Determine whether REDCap metadata should be refreshed based on logs
 #'
 #' Checks the REDCap project logging for changes to metadata (excluding
@@ -34,10 +58,12 @@ validate_redcap_connection <- function(con) {
 redcap_meta_force <- function(name, con) {
   last_meta_pull <- targets::tar_meta(targets::any_of(name))$time
 
+  begin_time <- redcap_convert_tz(last_meta_pull)
+
   meta_logs <- redcapAPI::exportLogging(
     con,
     logtype = "manage",
-    beginTime = last_meta_pull
+    beginTime = begin_time
   )
 
   meta_logs <- meta_logs[!grepl("Export|Download", meta_logs$details), ]
@@ -89,16 +115,18 @@ validate_fetch_records <- function(fetch_records) {
 #'
 #' @keywords internal
 redcap_instrument_force <- function(names, con) {
-  last_meta_pull <- targets::tar_meta(targets::any_of(names))
-  if (nrow(last_meta_pull) == 0) return(TRUE)
-  last_meta_pull <- min(last_meta_pull$time, na.rm = FALSE)
+  last_pull <- targets::tar_meta(targets::any_of(names))
+  if (nrow(last_pull) == 0) return(TRUE)
+  last_pull <- min(last_pull$time, na.rm = FALSE)
 
-  if (is.na(last_meta_pull)) return(TRUE)
+  if (is.na(last_pull)) return(TRUE)
+
+  begin_time <- redcap_convert_tz(last_pull)
 
   meta_logs <- redcapAPI::exportLogging(
     con,
     logtype = "record",
-    beginTime = last_meta_pull
+    beginTime = begin_time
   )
 
   nrow(meta_logs) > 0

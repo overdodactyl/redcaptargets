@@ -26,6 +26,16 @@ When `cue = "logging"`, `tar_redcap()` inspects the REDCap **project logs** and 
 
 Using logs helps avoid unnecessary data pulls and can significantly speed up pipelines for small- to medium-sized projects. `redcaptargets` fetches all REDCap project logs between the **last successful `tar_make()` run** and **the current time**, and determines whether relevant changes occurred. However, for very large projects with long histories or frequent activity, exporting logs over large time windows can become slow. In such cases, consider using a different `cue` strategy.
 
+### Timezone Handeling
+
+By default, `redcaptargets` assumes that the REDCap server is in the same timezone as your local system. If your REDCap instance is hosted in a different timezone, you can specify it globally using the option `redcaptargets.redcap_tz`, e.g.:
+
+```{r eval=FALSE}
+options(redcaptargets.redcap_tz = "America/New_York")
+```
+
+This ensures that timestamps passed to the REDCap API are interpreted correctly, as REDCap does not support timezone-aware inputs.
+
 ## Always
 
 Setting `cue = "always"` tells `tar_redcap()` to re-pull data from REDCap **every time** the pipeline runs, regardless of whether any changes were made.
