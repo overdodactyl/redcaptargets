@@ -178,6 +178,10 @@ redcap_fetch_meta <- function(con) {
     try_tibble()
 }
 
+redcap_primary_key <- function(meta) {
+  meta$field_name[1]
+}
+
 #' Resolve target cue settings for REDCap targets
 #'
 #' Determines how targets should be invalidated (`re-run`) based on the
@@ -328,6 +332,7 @@ tar_redcap <- function(name, con,
   name_sym <- rlang::ensym(name)
   name_str <- rlang::as_string(name_sym)
   name_meta <- paste0(name_str, "_meta_db")
+  name_record_id <- paste0(name_str, "_record_id")
 
   instruments_df <- resolve_redcap_instruments(instruments, con_obj)
   name_instruments <- paste0(name_str, "_", instruments_df$name)
@@ -343,6 +348,14 @@ tar_redcap <- function(name, con,
       ),
       cue = cues$meta,
       description = "REDCap Metadata"
+    ),
+    targets::tar_target_raw(
+      name = name_record_id,
+      command = substitute(
+        redcap_primary_key(meta),
+        env = list(meta = rlang::sym(name_meta))
+      ),
+      description = "REDCap Record ID"
     ),
     !!!tarchetypes::tar_map(
       values = instruments_df,

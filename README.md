@@ -83,16 +83,18 @@ list(
 ``` r
 targets::tar_make()
 #> + redcap_visits dispatched
-#> ✔ redcap_visits completed [509ms, 428 B]
+#> ✔ redcap_visits completed [574ms, 428 B]
 #> + redcap_labs dispatched
-#> ✔ redcap_labs completed [103ms, 477 B]
-#> + redcap_demographics dispatched
-#> ✔ redcap_demographics completed [117ms, 623 B]
+#> ✔ redcap_labs completed [107ms, 477 B]
 #> + redcap_meta_db dispatched
-#> ✔ redcap_meta_db completed [77ms, 568 B]
+#> ✔ redcap_meta_db completed [87ms, 568 B]
+#> + redcap_demographics dispatched
+#> ✔ redcap_demographics completed [97ms, 623 B]
+#> + redcap_record_id dispatched
+#> ✔ redcap_record_id completed [0ms, 62 B]
 #> + n_enrolled dispatched
 #> ✔ n_enrolled completed [0ms, 48 B]
-#> ✔ ended pipeline [1.1s, 5 completed, 0 skipped]
+#> ✔ ended pipeline [1.4s, 6 completed, 0 skipped]
 ```
 
 #### View generated targets
@@ -103,12 +105,13 @@ with one for metadata:
 ``` r
 manifest <- targets::tar_manifest()
 manifest[c("name", "description")]
-#> # A tibble: 5 × 2
+#> # A tibble: 6 × 2
 #>   name                description              
 #>   <chr>               <chr>                    
 #> 1 redcap_visits       REDCap Data: visits      
 #> 2 redcap_labs         REDCap Data: labs        
-#> 3 redcap_demographics REDCap Data: demographics
-#> 4 redcap_meta_db      REDCap Metadata          
-#> 5 n_enrolled          Enrollment Count
+#> 3 redcap_meta_db      REDCap Metadata          
+#> 4 redcap_demographics REDCap Data: demographics
+#> 5 redcap_record_id    REDCap Record ID         
+#> 6 n_enrolled          Enrollment Count
 ```
