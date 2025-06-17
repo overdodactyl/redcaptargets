@@ -34,3 +34,4 @@ Suggests:
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 URL: https://overdodactyl.github.io/redcaptargets/
+BugReports: https://github.com/overdodactyl/redcaptargets/issues
