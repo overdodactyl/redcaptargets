@@ -23,6 +23,23 @@ when needed, minimizing compute time and ensuring local copies remain up
 to date. Modular factory functions minimize boilerplate and adapt
 seamlessly to evolving study designs.
 
+## Installation
+
+You can install the development version of `redcaptargets` from GitHub
+using:
+
+``` r
+# install.packages("remotes") # if not already installed
+remotes::install_github("overdodactyl/redcaptargets")
+```
+
+If you’re using [`renv`](https://rstudio.github.io/renv/), you can
+install the package with:
+
+``` r
+renv::install("overdodactyl/redcaptargets")
+```
+
 ## Motivation
 
 REDCap doesn’t support SQL-like queries, so users often resort to
@@ -85,18 +102,18 @@ list(
 ``` r
 targets::tar_make()
 #> + redcap_visits dispatched
-#> ✔ redcap_visits completed [1.5s, 432 B]
+#> ✔ redcap_visits completed [503ms, 432 B]
 #> + redcap_labs dispatched
-#> ✔ redcap_labs completed [224ms, 477 B]
+#> ✔ redcap_labs completed [112ms, 477 B]
 #> + redcap_meta_db dispatched
-#> ✔ redcap_meta_db completed [334ms, 568 B]
+#> ✔ redcap_meta_db completed [89ms, 568 B]
 #> + redcap_demographics dispatched
-#> ✔ redcap_demographics completed [458ms, 623 B]
+#> ✔ redcap_demographics completed [131ms, 623 B]
 #> + redcap_record_id dispatched
 #> ✔ redcap_record_id completed [0ms, 62 B]
 #> + n_enrolled dispatched
 #> ✔ n_enrolled completed [0ms, 48 B]
-#> ✔ ended pipeline [2.7s, 6 completed, 0 skipped]
+#> ✔ ended pipeline [1.1s, 6 completed, 0 skipped]
 ```
 
 #### View generated targets

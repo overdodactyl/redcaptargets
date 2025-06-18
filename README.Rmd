@@ -23,6 +23,21 @@ knitr::opts_chunk$set(
 
 `redcaptargets` integrates [REDCap](https://project-redcap.org/) databases with the [`targets`](https://books.ropensci.org/targets/) pipeline toolkit to streamline reproducible clinical research workflows. It leverages the [`redcapAPI`](https://cran.r-project.org/web/packages/redcapAPI/index.html) package to connect to REDCap and automatically generates dynamic targets for both metadata and instrument-level data. By leveraging REDCap logging, redcaptargets detects meaningful changes and re-pulls data only when needed, minimizing compute time and ensuring local copies remain up to date. Modular factory functions minimize boilerplate and adapt seamlessly to evolving study designs.
 
+## Installation
+
+You can install the development version of `redcaptargets` from GitHub using:
+
+```r
+# install.packages("remotes") # if not already installed
+remotes::install_github("overdodactyl/redcaptargets")
+```
+
+If you’re using [`renv`](https://rstudio.github.io/renv/), you can install the package with:
+
+```r
+renv::install("overdodactyl/redcaptargets")
+```
+
 ## Motivation
 
 REDCap doesn’t support SQL-like queries, so users often resort to pulling *all* data across all instruments into their workspace for analysis. This leads to slow, repetitive code, especially in longitudinal studies where:
