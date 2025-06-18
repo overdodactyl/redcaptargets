@@ -5,6 +5,8 @@
 
 <!-- badges: start -->
 
+[![R
+Targetopia](https://img.shields.io/badge/R_Targetopia-member-blue?style=flat&labelColor=gray)](https://wlandau.github.io/targetopia/)
 [![R-CMD-check](https://github.com/overdodactyl/redcaptargets/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/overdodactyl/redcaptargets/actions/workflows/R-CMD-check.yaml)
 
 <!-- badges: end -->
@@ -83,18 +85,18 @@ list(
 ``` r
 targets::tar_make()
 #> + redcap_visits dispatched
-#> ✔ redcap_visits completed [574ms, 428 B]
+#> ✔ redcap_visits completed [1.5s, 432 B]
 #> + redcap_labs dispatched
-#> ✔ redcap_labs completed [107ms, 477 B]
+#> ✔ redcap_labs completed [224ms, 477 B]
 #> + redcap_meta_db dispatched
-#> ✔ redcap_meta_db completed [87ms, 568 B]
+#> ✔ redcap_meta_db completed [334ms, 568 B]
 #> + redcap_demographics dispatched
-#> ✔ redcap_demographics completed [97ms, 623 B]
+#> ✔ redcap_demographics completed [458ms, 623 B]
 #> + redcap_record_id dispatched
 #> ✔ redcap_record_id completed [0ms, 62 B]
 #> + n_enrolled dispatched
 #> ✔ n_enrolled completed [0ms, 48 B]
-#> ✔ ended pipeline [1.4s, 6 completed, 0 skipped]
+#> ✔ ended pipeline [2.7s, 6 completed, 0 skipped]
 ```
 
 #### View generated targets

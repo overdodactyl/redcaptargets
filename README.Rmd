@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 # redcaptargets <img src="man/figures/logo.png" align="right" width="100" height="100"/>
 
 <!-- badges: start -->
-
+[![R Targetopia](https://img.shields.io/badge/R_Targetopia-member-blue?style=flat&labelColor=gray)](https://wlandau.github.io/targetopia/)
 [![R-CMD-check](https://github.com/overdodactyl/redcaptargets/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/overdodactyl/redcaptargets/actions/workflows/R-CMD-check.yaml)
 
 <!-- badges: end -->
