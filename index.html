@@ -68,6 +68,17 @@
 <!-- badges: end -->
 <p><code>redcaptargets</code> integrates <a href="https://project-redcap.org/" class="external-link">REDCap</a> databases with the <a href="https://books.ropensci.org/targets/" class="external-link"><code>targets</code></a> pipeline toolkit to streamline reproducible clinical research workflows. It leverages the <a href="https://cran.r-project.org/web/packages/redcapAPI/index.html" class="external-link"><code>redcapAPI</code></a> package to connect to REDCap and automatically generates dynamic targets for both metadata and instrument-level data. By leveraging REDCap logging, redcaptargets detects meaningful changes and re-pulls data only when needed, minimizing compute time and ensuring local copies remain up to date. Modular factory functions minimize boilerplate and adapt seamlessly to evolving study designs.</p>
 <div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<p>You can install the development version of <code>redcaptargets</code> from GitHub using:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages("remotes") # if not already installed</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"overdodactyl/redcaptargets"</span><span class="op">)</span></span></code></pre></div>
+<p>If you’re using <a href="https://rstudio.github.io/renv/" class="external-link"><code>renv</code></a>, you can install the package with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">renv</span><span class="fu">::</span><span class="fu">install</span><span class="op">(</span><span class="st">"overdodactyl/redcaptargets"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
 <h2 id="motivation">Motivation<a class="anchor" aria-label="anchor" href="#motivation"></a>
 </h2>
 <p>REDCap doesn’t support SQL-like queries, so users often resort to pulling <em>all</em> data across all instruments into their workspace for analysis. This leads to slow, repetitive code, especially in longitudinal studies where:</p>
@@ -92,7 +103,7 @@
 <h4 id="id__targetsr-minimal-example">
 <strong>_targets.R: Minimal example</strong><a class="anchor" aria-label="anchor" href="#id__targetsr-minimal-example"></a>
 </h4>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/targets/" class="external-link">targets</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://overdodactyl.github.io/redcaptargets/">redcaptargets</a></span><span class="op">)</span></span>
 <span></span>
@@ -118,27 +129,27 @@
 <div class="section level4">
 <h4 id="trigger-the-pipeline">Trigger the pipeline<a class="anchor" aria-label="anchor" href="#trigger-the-pipeline"></a>
 </h4>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">targets</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_make.html" class="external-link">tar_make</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; + redcap_visits dispatched</span></span>
-<span><span class="co">#&gt; ✔ redcap_visits completed [1.5s, 432 B]</span></span>
+<span><span class="co">#&gt; ✔ redcap_visits completed [503ms, 432 B]</span></span>
 <span><span class="co">#&gt; + redcap_labs dispatched</span></span>
-<span><span class="co">#&gt; ✔ redcap_labs completed [224ms, 477 B]</span></span>
+<span><span class="co">#&gt; ✔ redcap_labs completed [112ms, 477 B]</span></span>
 <span><span class="co">#&gt; + redcap_meta_db dispatched</span></span>
-<span><span class="co">#&gt; ✔ redcap_meta_db completed [334ms, 568 B]</span></span>
+<span><span class="co">#&gt; ✔ redcap_meta_db completed [89ms, 568 B]</span></span>
 <span><span class="co">#&gt; + redcap_demographics dispatched</span></span>
-<span><span class="co">#&gt; ✔ redcap_demographics completed [458ms, 623 B]</span></span>
+<span><span class="co">#&gt; ✔ redcap_demographics completed [131ms, 623 B]</span></span>
 <span><span class="co">#&gt; + redcap_record_id dispatched</span></span>
 <span><span class="co">#&gt; ✔ redcap_record_id completed [0ms, 62 B]</span></span>
 <span><span class="co">#&gt; + n_enrolled dispatched</span></span>
 <span><span class="co">#&gt; ✔ n_enrolled completed [0ms, 48 B]</span></span>
-<span><span class="co">#&gt; ✔ ended pipeline [2.7s, 6 completed, 0 skipped]</span></span></code></pre></div>
+<span><span class="co">#&gt; ✔ ended pipeline [1.1s, 6 completed, 0 skipped]</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="view-generated-targets">View generated targets<a class="anchor" aria-label="anchor" href="#view-generated-targets"></a>
 </h4>
 <p>Each instrument in the REDCap project will have its own target, along with one for metadata:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">manifest</span> <span class="op">&lt;-</span> <span class="fu">targets</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_manifest.html" class="external-link">tar_manifest</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">manifest</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"description"</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 2</span></span>
